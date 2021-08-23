@@ -8,13 +8,19 @@
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet var clueLabel: UILabel!
+    @IBOutlet var answerLabel: UILabel!
+    @IBOutlet var answer: UITextField!
+    
     var level=0
+    var solution:String!
     var words = [String]()
     var clues = [String]()
     
     var currentWord:String!
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         if let path = Bundle.main.url(forResource: "level1", withExtension: "txt") {
             if let allWords = try? String(contentsOf: path){
                // print(allWords)
@@ -25,18 +31,38 @@ class ViewController: UIViewController {
                     let parts = line.components(separatedBy: ": ")
                     words.append(parts[0])
                     clues.append(parts[1])
-                    
                 }
                 print(words)
                 print(clues)
+                startGame()
                 
                 
             }
+            
         }
         
-    
+  
     
     }
+    
+    
+    func startGame(){
+        answer.placeholder = "Guess a letter"
+        solution = words[0]
+        clueLabel.text = clues[0]
+        clueLabel.sizeToFit()
+        for _ in solution {
+            answerLabel.text! += "?"
+        }
+        
+
+          
+            
+        
+        
+    }
+    
+    
     
 
 
