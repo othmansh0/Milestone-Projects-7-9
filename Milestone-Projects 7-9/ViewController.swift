@@ -19,6 +19,21 @@ class ViewController: UIViewController {
     var clues = [String]()
     var unknownStr = [Character]()
     let letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    var healthValue = 7 {
+        didSet{
+            healthLabel.text = "Health: "
+            for _ in 0..<healthValue {
+                healthLabel.text! += "❤︎"
+                
+            }
+        }
+    }
+    
+    var levelValue = 0 {
+        willSet{
+            levelLabel.text = "Level: \(newValue)"
+        }
+    }
     
     var currentWord:String!
     override func viewDidLoad() {
@@ -68,13 +83,10 @@ class ViewController: UIViewController {
                             answerLabel.sizeToFit()
                         }
                     }
-                    //haunted
-                    //???????
+             
                     
                 }else{
                     performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false)
-                    
-                  
                 }
                 
             }
@@ -99,15 +111,12 @@ class ViewController: UIViewController {
                 print(words)
                 print(clues)
                 performSelector(onMainThread: #selector(startGame), with: nil, waitUntilDone: false)
-                
-                
             }
-            
         }
-
     }
     
    @objc func showError(){
+        healthValue -= 1
         let ac = UIAlertController(title: "Incorrect Guess", message: nil, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Continue", style: .default))
         present(ac,animated: true)
