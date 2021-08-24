@@ -24,30 +24,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        performSelector(inBackground: #selector(loadData), with: nil)
         
-        if let path = Bundle.main.url(forResource: "level1", withExtension: "txt") {
-            if let allWords = try? String(contentsOf: path){
-               // print(allWords)
-                var lines = allWords.components(separatedBy: "\n")
-                //shuffle lines before splitting them into clues and words
-                lines.shuffle()
-                for line in lines{
-                    let parts = line.components(separatedBy: ": ")
-                    words.append(parts[0])
-                    clues.append(parts[1])
-                }
-                print(words)
-                print(clues)
-                startGame()
-                
-                
-            }
-            
-        }
    
     }
     
-    func startGame(){
+    @objc func startGame(){
         
         solution = words[0]
         clueLabel.text = clues[0]
@@ -90,8 +72,9 @@ class ViewController: UIViewController {
                     //???????
                     
                 }else{
+                    performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false)
                     
-                    print("no")
+                  
                 }
                 
             }
@@ -99,6 +82,35 @@ class ViewController: UIViewController {
     
         
         
+    }
+    
+    @objc func loadData(){
+        if let path = Bundle.main.url(forResource: "level1", withExtension: "txt") {
+            if let allWords = try? String(contentsOf: path){
+               // print(allWords)
+                var lines = allWords.components(separatedBy: "\n")
+                //shuffle lines before splitting them into clues and words
+                lines.shuffle()
+                for line in lines{
+                    let parts = line.components(separatedBy: ": ")
+                    words.append(parts[0])
+                    clues.append(parts[1])
+                }
+                print(words)
+                print(clues)
+                performSelector(onMainThread: #selector(startGame), with: nil, waitUntilDone: false)
+                
+                
+            }
+            
+        }
+
+    }
+    
+   @objc func showError(){
+        let ac = UIAlertController(title: "Incorrect Guess", message: nil, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Continue", style: .default))
+        present(ac,animated: true)
     }
     
 }
