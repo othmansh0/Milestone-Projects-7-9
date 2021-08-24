@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		127257BD26D52DDA00A3213F /* level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 127257BC26D52DD900A3213F /* level2.txt */; };
 		1295FBAF26D3DB440045647D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1295FBAE26D3DB440045647D /* AppDelegate.swift */; };
 		1295FBB126D3DB440045647D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1295FBB026D3DB440045647D /* SceneDelegate.swift */; };
 		1295FBB326D3DB440045647D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1295FBB226D3DB440045647D /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		127257BC26D52DD900A3213F /* level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level2.txt; sourceTree = "<group>"; };
 		1295FBAB26D3DB440045647D /* Milestone-Projects 7-9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Milestone-Projects 7-9.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1295FBAE26D3DB440045647D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1295FBB026D3DB440045647D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				1295FBB026D3DB440045647D /* SceneDelegate.swift */,
 				1295FBB226D3DB440045647D /* ViewController.swift */,
 				1295FBC426D3DC360045647D /* level1.txt */,
+				127257BC26D52DD900A3213F /* level2.txt */,
 				1295FBB426D3DB440045647D /* Main.storyboard */,
 				1295FBB726D3DB450045647D /* Assets.xcassets */,
 				1295FBB926D3DB450045647D /* LaunchScreen.storyboard */,
@@ -127,6 +130,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				127257BD26D52DDA00A3213F /* level2.txt in Resources */,
 				1295FBBB26D3DB450045647D /* LaunchScreen.storyboard in Resources */,
 				1295FBC526D3DC360045647D /* level1.txt in Resources */,
 				1295FBB826D3DB450045647D /* Assets.xcassets in Resources */,

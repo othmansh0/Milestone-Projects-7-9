@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet var answerLabel: UILabel!
     @IBOutlet var levelLabel: UILabel!
     @IBOutlet var healthLabel: UILabel!
+    @IBOutlet var scoreLabel: UILabel!
     
     var name:String!
     var solution:String!
@@ -29,9 +30,16 @@ class ViewController: UIViewController {
         }
     }
     
-    var levelValue = 0 {
+    var levelValue = 1 {
         willSet{
             levelLabel.text = "Level: \(newValue)"
+            healthLabel.text! += "❤︎"
+        }
+    }
+    
+    var score = 0 {
+        didSet{
+            scoreLabel.text = "Score: \(score)"
         }
     }
     
@@ -45,7 +53,8 @@ class ViewController: UIViewController {
     }
     
     @objc func startGame(){
-        
+        //Empty the label for next word
+        answerLabel.text = ""
         solution = words[0]
         clueLabel.text = clues[0]
         clueLabel.sizeToFit()
@@ -90,14 +99,27 @@ class ViewController: UIViewController {
                 }
                 
             }
-      
-    
-        
+      //If there's no ? marks are left in the string it means we need to move the user to next word
+        if String(unknownStr) == solution {
+            
+            
+            
+           // loadWord.....if none are left in allWords then call next level
+            if !words.isEmpty {
+            performSelector(onMainThread: #selector(nextWord), with: nil, waitUntilDone: false)
+               
+            }
+            else {
+                nextLevel()
+            }
+            
+            
+        }
         
     }
     
     @objc func loadData(){
-        if let path = Bundle.main.url(forResource: "level1", withExtension: "txt") {
+        if let path = Bundle.main.url(forResource: "level\(levelValue)", withExtension: "txt") {
             if let allWords = try? String(contentsOf: path){
                // print(allWords)
                 var lines = allWords.components(separatedBy: "\n")
@@ -109,10 +131,11 @@ class ViewController: UIViewController {
                     clues.append(parts[1])
                 }
                 print(words)
-                print(clues)
+               
                 performSelector(onMainThread: #selector(startGame), with: nil, waitUntilDone: false)
             }
         }
+        
     }
     
    @objc func showError(){
@@ -121,6 +144,30 @@ class ViewController: UIViewController {
         ac.addAction(UIAlertAction(title: "Continue", style: .default))
         present(ac,animated: true)
     }
+    
+    @objc func nextLevel(){
+        levelValue += 1
+        performSelector(inBackground: #selector(loadData), with: nil)
+    }
+    
+   @objc func nextWord(){
+        //Remove the word/clue since user guessed it right
+        words.remove(at: 0)
+        clues.remove(at: 0)
+        //Empty the label for next word
+        unknownStr.removeAll()
+        score += 1
+    
+    //To fill words array with the next level words
+    if words.isEmpty {
+        nextLevel()
+    }else{
+        startGame()
+    }
+       
+    
+    }
+    
     
 }
 
