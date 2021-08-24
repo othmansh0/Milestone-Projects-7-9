@@ -10,17 +10,21 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet var clueLabel: UILabel!
     @IBOutlet var answerLabel: UILabel!
-    @IBOutlet var answer: UITextField!
+    @IBOutlet var levelLabel: UILabel!
+    @IBOutlet var healthLabel: UILabel!
     
-    var level=0
+    var name:String!
     var solution:String!
     var words = [String]()
     var clues = [String]()
+    var unknownStr = [Character]()
+    let letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
     
     var currentWord:String!
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-       
+        
         if let path = Bundle.main.url(forResource: "level1", withExtension: "txt") {
             if let allWords = try? String(contentsOf: path){
                // print(allWords)
@@ -40,31 +44,62 @@ class ViewController: UIViewController {
             }
             
         }
-        
-  
-    
+   
     }
     
-    
     func startGame(){
-        answer.placeholder = "Guess a letter"
+        
         solution = words[0]
         clueLabel.text = clues[0]
         clueLabel.sizeToFit()
         for _ in solution {
-            answerLabel.text! += "?"
+            unknownStr.append("?")
         }
-        
-
-          
-            
-        
+        answerLabel.text = String(unknownStr)
+        answerLabel.sizeToFit()
+      
+//        let button = UIButton(type: .system) // let preferred over var here
+//        button.frame = CGRect(x: 100, y: 100, width: 100, height: 50)
+//        button.backgroundColor = .green
+//        button.setTitle("Button", for: .normal)
+//       // button.addTarget(self, action: nil, for: .touchUpInside)
+//       view.addSubview(button)
+//
         
     }
     
     
+  
     
 
-
+    @IBAction func letterTapped(_ sender: UIButton) {
+       // print(sender.currentTitle)
+        print(solution)
+     
+            if let userAnswer = sender.currentTitle {
+                if(solution.contains(userAnswer)){
+                   
+                    for (index,letter) in solution.enumerated() {
+                        if String(letter) == sender.currentTitle{
+                            unknownStr[index] = letter
+                            answerLabel.text = String(unknownStr)
+                            answerLabel.sizeToFit()
+                        }
+                    }
+                    //haunted
+                    //???????
+                    
+                }else{
+                    
+                    print("no")
+                }
+                
+            }
+      
+    
+        
+        
+    }
+    
 }
 
